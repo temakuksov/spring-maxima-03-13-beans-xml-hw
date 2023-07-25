@@ -4,7 +4,7 @@ public class RockRadio implements Radio {
     private String name;
 
     public RockRadio(){
-        System.out.println("This is RockRadio! ツ");
+        System.out.println("This is RockRadio! \\oo/");
     }
     public String getName() {
         return name;
@@ -15,6 +15,6 @@ public class RockRadio implements Radio {
 
     @Override
     public String getSong(){
-        return "Adriano Celentano - Susanna";
+        return "Papa Roach - Scars";
     }
 }

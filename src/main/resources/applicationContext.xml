@@ -7,20 +7,23 @@
 
     <context:property-placeholder location="application.properties"/>
 
-    <!-- создаем фабрику через конструктор -->
-    <bean id="radioFactory" class="ru.maxima.spring.RadioFactory"/>
-
-    <!-- Создаем бины через фабрику -->
-    <bean id="rockRadio" factory-bean="radioFactory" factory-method="createRockRadio"/>
-    <bean id="retroRadio" factory-bean="radioFactory" factory-method="createRetroRadio"/>
-    <bean id="nasheRadio" factory-bean="radioFactory" factory-method="createNasheRadio"/>
+    <!-- Создаем бины радиостанций -->
+    <bean id="rockRadio" class="ru.maxima.spring.RockRadio">
+        <property name="name" value="RockRadio"/>
+    </bean>
+    <bean id="retroRadio" class="ru.maxima.spring.RetroRadio">
+        <property name="name" value="RetroRadio"/>
+    </bean>
+    <bean id="nasheRadio" class="ru.maxima.spring.NasheRadio">
+        <property name="name" value="NasheRadio"/>
+    </bean>
 
     <!-- Создаем бин со спиком бинов радиостанций -->
     <bean id="musicPlayer" name="musicPlayer" class="ru.maxima.spring.MusicPlayer">
         <property name="listOfRadio">
         <list>
-            <ref bean="retroRadio"/>
             <ref bean="rockRadio"/>
+            <ref bean="retroRadio"/>
             <ref bean="nasheRadio"/>
         </list>
         </property>
