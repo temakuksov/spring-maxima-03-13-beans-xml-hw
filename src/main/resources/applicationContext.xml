@@ -6,15 +6,26 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:property-placeholder location="application.properties"/>
-    <bean id="retroRadio"
-          class="ru.maxima.spring.RetroRadio">
-    </bean>
 
-    <bean id="musicPlayer"
-          class="ru.maxima.spring.MusicPlayer">
-        <property name="radio" ref="retroRadio"/>
-        <property name="nameOfRadioFrequency" value="${nameOfRadioFrequency}"/>
-        <property name="startRadio" value="${startRadio}"/>
-        <property name="endRadio" value="${endRadio}"/>
+    <!-- создаем фабрику через конструктор -->
+    <bean id="radioFactory" class="ru.maxima.spring.RadioFactory"/>
+
+    <!-- Создаем бины через фабрику -->
+    <bean id="rockRadio" factory-bean="radioFactory" factory-method="createRockRadio"/>
+    <bean id="retroRadio" factory-bean="radioFactory" factory-method="createRetroRadio"/>
+    <bean id="nasheRadio" factory-bean="radioFactory" factory-method="createNasheRadio"/>
+
+    <!-- Создаем бин со спиком бинов радиостанций -->
+    <bean id="musicPlayer" name="musicPlayer" class="ru.maxima.spring.MusicPlayer">
+        <property name="listOfRadio">
+        <list>
+            <ref bean="retroRadio"/>
+            <ref bean="rockRadio"/>
+            <ref bean="nasheRadio"/>
+        </list>
+        </property>
+        <property name="nameOfRadioFreq" value="${nameOfRadioFreq}"/>
+        <property name="beginFreq" value="${beginFreq}"/>
+        <property name="endFreq" value="${endFreq}"/>
     </bean>
 </beans>
