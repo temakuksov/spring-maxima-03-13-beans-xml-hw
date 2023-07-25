@@ -12,7 +12,7 @@ public class Main {
 
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
 
-        System.out.println();
+        System.out.println("\n*----- Playlist:");
         musicPlayer.playMusic();
 
     }
